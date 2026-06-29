@@ -2,6 +2,7 @@ import "./styles.css";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { devices } from "./devices.js";
 import { getInitialLayerIndex, getNextLayerIndex } from "./detailState.js";
 import {
@@ -47,7 +48,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.08;
+renderer.toneMappingExposure = 0.92;
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
@@ -82,6 +83,11 @@ floorGrid.position.y = -1.05;
 floorGrid.material.transparent = true;
 floorGrid.material.opacity = 0.55;
 scene.add(floorGrid);
+
+// Environment map for PBR reflections on model surfaces
+const pmremGenerator = new THREE.PMREMGenerator(renderer);
+scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
+pmremGenerator.dispose();
 
 let activeDevice = devices[0];
 let activePart = activeDevice.parts[0];
