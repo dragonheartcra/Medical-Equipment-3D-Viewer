@@ -13,14 +13,13 @@ import {
 
 const canvas = document.querySelector("#sceneCanvas");
 const viewerShell = document.querySelector("#viewerShell");
-const deviceTabs = document.querySelector("#deviceTabs");
+const deviceList = document.querySelector("#deviceList");
 const hotspotLayer = document.querySelector("#hotspotLayer");
 const loadingMask = document.querySelector("#loadingMask");
 const loadingText = document.querySelector("#loadingText");
 const deviceTitle = document.querySelector("#deviceTitle");
 const deviceSummary = document.querySelector("#deviceSummary");
 const resetViewButton = document.querySelector("#resetViewButton");
-const toggleHotspotsButton = document.querySelector("#toggleHotspotsButton");
 const partTitle = document.querySelector("#partTitle");
 const partDescription = document.querySelector("#partDescription");
 const layerTabs = document.querySelector("#layerTabs");
@@ -34,7 +33,7 @@ const modalCanvas = document.querySelector("#modalCanvas");
 const modalCloseButton = document.querySelector("#modalCloseButton");
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xf7faff);
+scene.background = new THREE.Color(0x080e1a);
 
 const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 120);
 camera.position.set(0, 2.5, 6);
@@ -78,11 +77,19 @@ const rimLight = new THREE.DirectionalLight(0xffffff, 1.2);
 rimLight.position.set(0, 3, -5);
 scene.add(rimLight);
 
-const floorGrid = new THREE.GridHelper(8, 24, 0xd7e2ef, 0xe8eef6);
-floorGrid.position.y = -1.05;
-floorGrid.material.transparent = true;
-floorGrid.material.opacity = 0.55;
-scene.add(floorGrid);
+// Platform (showcase pedestal)
+const platformGeometry = new THREE.CircleGeometry(3.5, 64);
+const platformMaterial = new THREE.MeshStandardMaterial({
+  color: 0x1a2332,
+  roughness: 0.3,
+  metalness: 0.7,
+  transparent: true,
+  opacity: 0.5,
+});
+const platform = new THREE.Mesh(platformGeometry, platformMaterial);
+platform.rotation.x = -Math.PI / 2;
+platform.position.y = -1.25;
+scene.add(platform);
 
 // Environment map for PBR reflections on model surfaces
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -122,16 +129,24 @@ debugPreviewMarker.renderOrder = 10;
 debugPreviewMarker.visible = false;
 scene.add(debugPreviewMarker);
 
-function renderDeviceTabs() {
-  deviceTabs.innerHTML = "";
+function renderDeviceList() {
+  deviceList.innerHTML = "";
   devices.forEach((device) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "device-tab";
-    button.textContent = device.shortName;
-    button.dataset.deviceId = device.id;
-    button.addEventListener("click", () => setActiveDevice(device.id));
-    deviceTabs.append(button);
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "device-card";
+    card.dataset.deviceId = device.id;
+    card.innerHTML = `
+      <div class="device-card-thumb">
+        <img src="${device.parts[0]?.layers[0]?.image ?? ""}" alt="${device.shortName}" loading="lazy" />
+      </div>
+      <div class="device-card-info">
+        <span class="device-card-name">${device.name}</span>
+        <span class="device-card-summary">${device.summary}</span>
+      </div>
+    `;
+    card.addEventListener("click", () => setActiveDevice(device.id));
+    deviceList.append(card);
   });
 }
 
@@ -152,8 +167,8 @@ function setActiveDevice(deviceId) {
 function updateDeviceChrome() {
   deviceTitle.textContent = activeDevice.name;
   deviceSummary.textContent = activeDevice.summary;
-  document.querySelectorAll(".device-tab").forEach((tab) => {
-    tab.classList.toggle("is-active", tab.dataset.deviceId === activeDevice.id);
+  document.querySelectorAll(".device-card").forEach((card) => {
+    card.classList.toggle("is-active", card.dataset.deviceId === activeDevice.id);
   });
 }
 
@@ -205,10 +220,11 @@ function loadModel(device) {
       const center = box.getCenter(new THREE.Vector3());
       const size = box.getSize(new THREE.Vector3());
       const maxDimension = Math.max(size.x, size.y, size.z) || 1;
-      const scale = 3.8 / maxDimension;
+      const scale = 2.8 / maxDimension;
 
       content.position.copy(center).multiplyScalar(-1);
       model.scale.setScalar(scale);
+      model.position.y = 0.6;
       model.add(content);
       modelGroup.add(model);
       activeModel = model;
@@ -651,11 +667,6 @@ function onModalPointerUp(event) {
 }
 
 resetViewButton.addEventListener("click", () => resetCamera());
-toggleHotspotsButton.addEventListener("click", () => {
-  hotspotsVisible = !hotspotsVisible;
-  toggleHotspotsButton.textContent = hotspotsVisible ? "隐藏标注" : "显示标注";
-  updateHotspotStates();
-});
 detailImageButton.addEventListener("click", openImageModal);
 modalCloseButton.addEventListener("click", closeImageModal);
 imageModal.addEventListener("click", (event) => {
@@ -678,7 +689,7 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-renderDeviceTabs();
+renderDeviceList();
 setupDebugPanel();
 updateDeviceChrome();
 renderDetails();

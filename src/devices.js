@@ -5,7 +5,7 @@ export const devices = [
     shortName: "DR",
     model: "/models/dr.glb",
     summary: "悬吊式数字化X线摄影系统，用于常规X线摄影教学展示。",
-    camera: { position: [0, 2.5, 6], target: [0, 0.8, 0] },
+    camera: { position: [0, 2.5, 7.5], target: [0, 0.8, 0] },
     parts: [
       {
         id: "xray-tube",
@@ -62,8 +62,8 @@ export const devices = [
     name: "CT 计算机断层扫描",
     shortName: "CT",
     model: "/models/ct.glb",
-    summary: "CT通过旋转扫描采集多角度投影数据，重建人体断层图像。",
-    camera: { position: [0, 2.3, 6], target: [0, 0.7, 0] },
+    summary: "多角度螺旋扫描，重建人体断层图像",
+    camera: { position: [0, 2.3, 7.5], target: [0, 0.7, 0] },
     parts: [
       {
         id: "control-panel",
@@ -106,7 +106,7 @@ export const devices = [
     shortName: "DSA",
     model: "/models/dsa.glb",
     summary: "DSA用于血管造影和介入治疗过程中的动态影像观察。",
-    camera: { position: [0, 2.4, 6.3], target: [0, 0.8, 0] },
+    camera: { position: [0, 2.4, 7.5], target: [0, 0.8, 0] },
     parts: [
       {
         id: "c-arm",
@@ -158,7 +158,7 @@ export const devices = [
     shortName: "MRI",
     model: "/models/mri.glb",
     summary: "MRI利用强磁场和射频信号获取人体组织的断层图像。",
-    camera: { position: [0, 2.3, 6], target: [0, 0.8, 0] },
+    camera: { position: [0, 2.3, 7.5], target: [0, 0.8, 0] },
     parts: [
       {
         id: "main-magnet",
@@ -181,8 +181,8 @@ export const devices = [
     name: "超声诊断仪",
     shortName: "超声",
     model: "/models/ultrasound.glb",
-    summary: "超声诊断仪通过探头发射和接收超声波，形成实时影像。",
-    camera: { position: [0, 2.2, 5.2], target: [0, 0.9, 0] },
+    summary: "探头发射超声波，形成实时影像诊断",
+    camera: { position: [0, 2.2, 7.0], target: [0, 0.9, 0] },
     parts: [
       {
         id: "probe",
