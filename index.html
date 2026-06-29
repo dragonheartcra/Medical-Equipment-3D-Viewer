@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>医学影像设备 3D 交互展示</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">3D</span>
+          <div>
+            <h1>医学影像设备 3D 交互展示</h1>
+            <p>整体模型旋转缩放 · 关键部件标注 · 教学细节图</p>
+          </div>
+        </div>
+        <nav class="device-tabs" id="deviceTabs" aria-label="设备切换"></nav>
+      </header>
+
+      <main class="workspace">
+        <section class="stage-panel" aria-label="3D模型展示区">
+          <div class="stage-header">
+            <div>
+              <h2 id="deviceTitle">加载中</h2>
+              <p id="deviceSummary">正在准备 3D 场景</p>
+            </div>
+            <div class="stage-actions">
+              <button class="tool-button" id="resetViewButton" type="button">重置视角</button>
+              <button class="tool-button" id="toggleHotspotsButton" type="button">隐藏标注</button>
+            </div>
+          </div>
+
+          <div class="viewer-shell" id="viewerShell">
+            <canvas id="sceneCanvas"></canvas>
+            <div class="hotspot-layer" id="hotspotLayer" aria-label="模型标注层"></div>
+            <div class="loading-mask" id="loadingMask">
+              <div class="loader"></div>
+              <span id="loadingText">加载模型中...</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="detail-panel" aria-label="部件详情">
+          <div class="detail-heading">
+            <span class="eyebrow">当前部件</span>
+            <h3 id="partTitle">请选择标注点</h3>
+            <p id="partDescription">点击模型上的蓝色标注点查看结构图和说明。</p>
+          </div>
+
+          <div class="layer-tabs" id="layerTabs" aria-label="详情层级"></div>
+
+          <button class="image-card" id="detailImageButton" type="button" aria-label="打开大图">
+            <img id="detailImage" alt="" />
+            <span>点击查看大图</span>
+          </button>
+
+          <div class="detail-copy">
+            <h4 id="layerTitle">展示说明</h4>
+            <p id="layerText">悬浮或点击标注点后，这里会显示对应部件的教学细节。</p>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <div class="image-modal" id="imageModal" aria-hidden="true">
+      <button class="modal-close" id="modalCloseButton" type="button" aria-label="关闭大图">关闭</button>
+      <div class="modal-canvas" id="modalCanvas">
+        <img id="modalImage" alt="" />
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
