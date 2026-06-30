@@ -1,10 +1,11 @@
 export const devices = [
   {
     id: "dr",
-    name: "DR 数字化X线摄影",
+    name: "DR 数字化X线摄影（Digital Radiography）",
     shortName: "DR",
     model: "/models/dr.glb",
-    summary: "悬吊式数字化X线摄影系统，用于常规X线摄影教学展示。",
+    summary:
+      "“快速的平面摄影师”。原理：利用X射线穿透人体，骨骼等密度高的组织吸收多，在片子上呈白色；肺部等含气组织吸收少，呈黑色。优点：速度快、价格经济、辐射剂量相对较低。缺点：影像前后重叠，缺乏立体感，对软组织的分辨能力有限。主要用于骨骼、胃肠道、泌尿系统、胸部检查。",
     camera: { position: [0, 2.5, 7.5], target: [0, 0.8, 0] },
     parts: [
       {
@@ -59,10 +60,11 @@ export const devices = [
   },
   {
     id: "ct",
-    name: "CT 计算机断层扫描",
+    name: "CT 计算机断层扫描（Computed Tomography）",
     shortName: "CT",
     model: "/models/ct.glb",
-    summary: "多角度螺旋扫描，重建人体断层图像",
+    summary:
+      "“高效的立体侦探”。原理：用X射线把身体像面包一样“切”成一片一片地看，通过计算机处理，将多个层面的图像重建成清晰的三维立体模型。优点：图像清晰无重叠，能发现细微病变，扫描速度极快。缺点：有一定的辐射剂量。可用于全身任何部位组织器官的检查，已成为临床常规的影像检查方法。",
     camera: { position: [0, 2.3, 7.5], target: [0, 0.7, 0] },
     parts: [
       {
@@ -102,10 +104,11 @@ export const devices = [
   },
   {
     id: "dsa",
-    name: "DSA 数字减影血管造影",
+    name: "DSA 数字减影血管造影（Digital Subtraction Angiography）",
     shortName: "DSA",
     model: "/models/dsa.glb",
-    summary: "DSA用于血管造影和介入治疗过程中的动态影像观察。",
+    summary:
+      "“剥离背景的血管地图师”。原理：用X射线给血管拍“动态电影”，并通过计算机“抠图”技术，把骨骼、软组织等背景全部减去，只留下纯净清晰的血管影像。优点：动态实时成像，能清晰显示血流方向、速度和血管狭窄程度，并且集诊断与治疗于一体。缺点：属于有创操作，辐射剂量相对较高，且需注射碘造影剂，存在过敏风险。是诊断血管性疾病的“金标准”，广泛应用于神经介入、心脏介入及肿瘤灌注治疗等领域。",
     camera: { position: [0, 2.4, 7.5], target: [0, 0.8, 0] },
     parts: [
       {
@@ -154,10 +157,11 @@ export const devices = [
   },
   {
     id: "mri",
-    name: "MRI 核磁共振成像",
+    name: "MRI 核磁共振成像（Magnetic Resonance Imaging）",
     shortName: "MRI",
     model: "/models/mri.glb",
-    summary: "MRI利用强磁场和射频信号获取人体组织的断层图像。",
+    summary:
+      "“摇动氢质子的微观绘图师”。原理：把身体放进一个巨大的强磁场中，用特定频率的射频脉冲去“摇动”体内的氢原子核。当脉冲停止后，氢原子核“归位”时释放出的能量信号被计算机捕捉，从而绘制出组织器官的内部结构图。优点：无电离辐射，软组织分辨率极高，可进行多方位多参数成像。缺点：扫描时间较长，噪声大，且有严格禁忌症，体内有非兼容心脏起搏器、铁磁性金属异物等严禁检查。是中枢神经系统、骨关节肌肉系统及腹盆腔实质脏器病变的首选和精准检查手段。",
     camera: { position: [0, 2.3, 7.5], target: [0, 0.8, 0] },
     parts: [
       {
@@ -178,10 +182,11 @@ export const devices = [
   },
   {
     id: "ultrasound",
-    name: "超声诊断仪",
+    name: "超声诊断仪（Ultrasonography / Ultrasound）",
     shortName: "超声",
     model: "/models/ultrasound.glb",
-    summary: "探头发射超声波，形成实时影像诊断",
+    summary:
+      "“倾听回声的动态声呐侦探”。原理：用探头向身体发射高频声波，像蝙蝠或声呐一样，通过“听”不同组织界面反射回来的回声强弱与时间差，经由计算机实时转换成连续动态的灰阶图像。优点：无电离辐射，可实现实时动态成像，设备便携，可床旁急诊，且价格低廉、无绝对禁忌症。缺点：对含气脏器及骨骼无法有效穿透，图像清晰度易受腹壁脂肪和操作者手法影响，且无法像CT/MRI那样提供全器官的断层解剖概览。是妇产科、腹部、心血管及甲状腺、乳腺等浅表器官的首选筛查工具，也是介入引导的“实时眼睛”。",
     camera: { position: [0, 2.2, 7.0], target: [0, 0.9, 0] },
     parts: [
       {
